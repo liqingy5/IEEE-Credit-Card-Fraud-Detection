@@ -13,14 +13,14 @@ def conf_matrix(y_test,y_pred_test):
     print("PPV(Precision)   = ",tp/(tp+fp)) 
     print("NPV   = ",tn/(tn+fn)) 
 
+    
 
 ### Roc curve and PR curve
-
 def roc_pr_curve(y_test,probs_predict):
     # Draw the ROC curve
     plt.figure(1)
     # ROC curve components
-    fpr, tpr, thresholdsROC = roc_curve(y_test, probs_predict[:,1])
+    fpr, tpr, thresholdsROC = roc_curve(y_test, probs_predict)
     #plot
     plt.plot(fpr,tpr)
     plt.title("ROC curve")
