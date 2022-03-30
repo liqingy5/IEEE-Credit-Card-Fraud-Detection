@@ -5,13 +5,16 @@ from sklearn.metrics import precision_recall_curve
 #extract components of the confusion matrix
 def conf_matrix(y_test,y_pred_test):
     tn, fp, fn, tp = confusion_matrix(y_test, y_pred_test).ravel()
+    precision = tp/(tp+fp)
+    recall = tp/(tp+fn)
     print("Test data")
     print([[tp,tn],[fp,fn]])
     print("Misclassification error = ",fp+fn)   
-    print("SENS(recall)  = ",tp/(tp+fn)) 
+    print("SENS(recall)  = ",recall) 
     print("SPEC   = ",tn/(tn+fp)) 
-    print("PPV(Precision)   = ",tp/(tp+fp)) 
+    print("PPV(Precision)   = ",precision) 
     print("NPV   = ",tn/(tn+fn)) 
+    print("F1-SCORE = ", 2 * (precision * recall) / (precision + recall))
 
     
 
@@ -31,7 +34,7 @@ def roc_pr_curve(y_test,probs_predict):
     # Draw the PR curve
     plt.figure(2)
     # Components of the Precision recall curvey
-    precision, recall, thresholdsPR = precision_recall_curve(y_test, probs_predict[:,1])
+    precision, recall, thresholdsPR = precision_recall_curve(y_test, probs_predict)
     # plot
     plt.plot(recall,precision)
     plt.title("PR curve")
