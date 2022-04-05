@@ -2,9 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression as LR
 from sklearn.metrics import classification_report, roc_auc_score, roc_curve, confusion_matrix
 from sklearn.metrics import precision_recall_curve
 import pickle
@@ -25,6 +23,7 @@ def evaluate(model_name):
         model = pickle.load(file)
         
     if model_name =="XGboost":
+        import xgboost as xgb
         dtest = xgb.DMatrix(data=X_test, label=y_test)
         y_pred_probs = model.predict(dtest)
         metrics.roc_pr_curve(y_test,y_pred_probs)
@@ -32,17 +31,17 @@ def evaluate(model_name):
         y_pred_probs[y_pred_probs < 0.5] = 0
         metrics.conf_matrix(y_test,y_pred_probs)
         return
+    elif model_name == "LR":
+        from sklearn.linear_model import LogisticRegression as LR
+        sc_train = model.score(X_train, y_train)
+        sc_test = model.score(X_test, y_test)
+        y_pred_test = model.predict(X_test)
+        probs=model.predict_proba(X_test)
+        print(sc_train)
+        print(sc_test)
 
-    
-    sc_train = model.score(X_train, y_train)
-    sc_test = model.score(X_test, y_test)
-    y_pred_test = model.predict(X_test)
-    probs=model.predict_proba(X_test)
-    print(sc_train)
-    print(sc_test)
-
-    metrics.conf_matrix(y_test,y_pred_test)
-    metrics.roc_pr_curve(y_test,probs[:,1])
+        metrics.conf_matrix(y_test,y_pred_test)
+        metrics.roc_pr_curve(y_test,probs[:,1])
     
 
 
