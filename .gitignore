@@ -1,3 +1,5 @@
+# training verbose output files
+*.out
 # data path file
 .env
 
