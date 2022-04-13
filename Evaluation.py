@@ -15,7 +15,7 @@ with open('.env') as f:
 
 
 def evaluate(model_name):
-    data = pd.read_csv(f'{_data_pth_}/processed/train_transaction.csv', index_col=0)
+    data = pd.read_csv(f'{_data_pth_}/processed/train_joined.csv', index_col=0)
     y, X = data['isFraud'], data.drop(columns=['isFraud'])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33,random_state = utils._random_seed_)
     _filename_ = model_name+".model"
