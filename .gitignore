@@ -1,5 +1,6 @@
 # training verbose output files
 *.out
+grid_search_result.csv
 # data path file
 .env
 
