@@ -7,6 +7,7 @@ from sklearn.metrics import classification_report, roc_auc_score, roc_curve, con
 from sklearn.metrics import precision_recall_curve
 import pickle
 import metrics
+import utils
 
 with open('.env') as f:
     _data_pth_ = f.readline().strip()
@@ -16,10 +17,10 @@ with open('.env') as f:
 def evaluate(model_name):
     data = pd.read_csv(f'{_data_pth_}/processed/train_transaction.csv', index_col=0)
     y, X = data['isFraud'], data.drop(columns=['isFraud'])
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33,random_state = utils._random_seed_)
     _filename_ = model_name+".model"
     # Load the Model back from file
-    with open(f'../models/{_filename_}', 'rb') as file:  
+    with open(f'{utils._data_pth_}/models/{_filename_}', 'rb') as file:  
         model = pickle.load(file)
         
     if model_name =="XGboost":
