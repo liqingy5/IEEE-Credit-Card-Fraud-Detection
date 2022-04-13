@@ -1,7 +1,8 @@
 import os
 import random
 
-random.seed(5)
+_random_seed_ = 5
+random.seed(_random_seed_)
 
 with open('.env') as f:
     _data_pth_ = f.readline().strip()
