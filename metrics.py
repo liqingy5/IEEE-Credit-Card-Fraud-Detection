@@ -5,10 +5,11 @@ from sklearn.metrics import precision_recall_curve
 #extract components of the confusion matrix
 def conf_matrix(y_test,y_pred_test):
     tn, fp, fn, tp = confusion_matrix(y_test, y_pred_test).ravel()
+    accuracy = (tp + tn) / (tp + tn + fp + fn)
     precision = tp/(tp+fp)
     recall = tp/(tp+fn)
-    print("Test data")
     print([[tp,tn],[fp,fn]])
+    print("Accuracy: ",accuracy)
     print("Misclassification error = ",fp+fn)   
     print("SENS(recall)  = ",recall) 
     print("SPEC   = ",tn/(tn+fp)) 
@@ -20,6 +21,9 @@ def conf_matrix(y_test,y_pred_test):
 
 ### Roc curve and PR curve
 def roc_pr_curve(y_test,probs_predict):
+    # calculate AUROC
+    Auroc_score=roc_auc_score(y_test, probs_predict)
+    print("AUROC score: ",Auroc_score)
     # Draw the ROC curve
     plt.figure(1)
     # ROC curve components
