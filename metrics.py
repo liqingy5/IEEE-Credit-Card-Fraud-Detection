@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, roc_auc_score, roc_curve, confusion_matrix
 from sklearn.metrics import precision_recall_curve
+from ipdb import set_trace
 
 #extract components of the confusion matrix
 def conf_matrix(y_test,y_pred_test):
