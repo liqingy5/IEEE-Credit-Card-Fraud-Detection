@@ -12,12 +12,12 @@ with open('.env') as f:
     _data_pth_ = os.path.expanduser(_data_pth_)
 
 
-def evaluate(model_name,data_name):
+def evaluate(model_name, data_name):
     data = pd.read_csv(f'{_data_pth_}/processed/{data_name}.csv', index_col=0)
     y, X = data['isFraud'], data.drop(columns=['isFraud'])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33,random_state = utils._random_seed_)
+
     # Load the Model back from file
-    
     with open(f'{utils._data_pth_}/models/{model_name}.model', 'rb') as file:  
         model = pickle.load(file)
 

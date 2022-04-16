@@ -23,6 +23,8 @@ def load_standard_data(data_type="standard"):
         type_pth = "joined_missing_value"
     elif data_type == "redundant":
         type_pth = "joined_redundant_value"
+    elif data_type == "undersampled":
+        type_pth = "joined_undersampled_value"
         
     pth = f"{_data_pth_}/processed/train_{type_pth}.csv"
    
