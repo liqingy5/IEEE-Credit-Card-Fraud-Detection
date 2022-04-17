@@ -6,6 +6,7 @@ from ipdb import set_trace
 #extract components of the confusion matrix
 def conf_matrix(y_test,y_pred_test):
     tn, fp, fn, tp = confusion_matrix(y_test, y_pred_test).ravel()
+    print(f"tn: {tn}, fp: {fp}, fn: {fn}, tp: {tp}")
     accuracy = (tp + tn) / (tp + tn + fp + fn)
     precision = tp/(tp+fp)
     recall = tp/(tp+fn)
